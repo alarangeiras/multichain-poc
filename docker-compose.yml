@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  node_1:
+    image: multichain
+    build: .
+    container_name: multichain_node_1
+    networks:
+    - multichain
+  node_2:
+    image: multichain
+    build: .
+    container_name: multichain_node_2
+    command: /bin/bash -c "multichaind -daemon chain1@multichain_node_1:7721 && tail -f /dev/null"
+    depends_on:
+    - node_1
+    networks:
+    - multichain
+  node_3:
+    image: multichain
+    build: .
+    container_name: multichain_node_3
+    command: /bin/bash -c "multichaind -daemon chain1@multichain_node_1:7721 && tail -f /dev/null"
+    depends_on:
+    - node_1
+    networks:
+    - multichain
+    
+networks:
+  multichain:
+    driver: bridge
