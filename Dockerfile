@@ -15,5 +15,3 @@ WORKDIR /tmp/multichain-2.0.2
 RUN mv multichaind multichain-cli multichain-util /usr/bin
 
 WORKDIR /root
-
-CMD multichain-util create chain1 && multichaind chain1 -daemon -port=7721 -rpcport=7720 && tail -f /dev/null
